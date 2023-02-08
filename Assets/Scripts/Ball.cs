@@ -44,6 +44,17 @@ public class Ball : MonoBehaviour
         {
             Destroy(collision.gameObject);
             manager.OnBlockDestroyed();
+
+            if(manager.BlocksRemaining == 1)
+            {
+                //find last block
+                GameObject lastBlock = GameObject.FindGameObjectWithTag("Block");
+                //calculate direction to it
+                Vector2 direction = lastBlock.transform.position - transform.position;
+                direction.Normalize();
+                //set velocity to move toward last block
+                body.velocity = direction * moveSpeed;
+            }
         }
     }
 }
